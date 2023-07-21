@@ -105,8 +105,8 @@ data "aws_security_group" "security_az"{
  resource "aws_autoscaling_group" "asg" {
   name = "ag_terraform"
    availability_zones = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
-   desired_capacity = 1
-   max_size = 2
+   desired_capacity = 2
+   max_size = 3
    min_size = 1
    launch_template {
      id = aws_launch_template.launch_template.id
@@ -154,10 +154,32 @@ data "aws_security_group" "security_az"{
    }
  }
 
+# Schedule for turning on and turning off instances launched by Auto Scaling Group
+
+ resource "aws_autoscaling_schedule" "turn_on" {
+  scheduled_action_name = "turn_on"
+  min_size = 1
+  max_size = 3
+  desired_capacity = 2
+  recurrence = "0 8 * * *"
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+   
+ }
+
+ resource "aws_autoscaling_schedule" "turn_off" {
+  scheduled_action_name = "turn_off"
+  min_size = 0
+  max_size = 1
+  desired_capacity = 0
+  recurrence = "0 20 * * *"
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+   
+ }
+
 # This block defines an output variable that exposes the DNS name of the ELB created earlier.
 # The value can be accessed after applying the Terraform configuration.
 
  output "elb_dns_name" {
- value = aws_elb.ELB.dns_name
+ value = "Your DNS http://${aws_elb.ELB.dns_name}"
  }
  
