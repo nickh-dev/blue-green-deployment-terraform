@@ -23,3 +23,6 @@ To deploy this infrastructure on AWS, follow the steps outlined below:
 
 # Conclusion:
 By utilizing this Terraform configuration, you can easily provision a scalable and resilient infrastructure on AWS. The provided code automates the deployment of an EC2 instance, an Auto Scaling Group, and an Elastic Load Balancer, setting the foundation for a robust and highly available environment. Feel free to customize the configuration to fit your specific needs and leverage the power of infrastructure as code with Terraform.
+
+# Link for the architecture
+Follow this link to explore the architecture --> https://drive.google.com/file/d/15k7ed6hlgrCej93fuz9_otAjLj7YhrsQ/view?usp=sharing
